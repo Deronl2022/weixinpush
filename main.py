@@ -62,23 +62,35 @@ def get_weather(region):
  
 
 def get_tianhang(config):
-    try:
-        key = config["tian_api"]
-        url = "http://api.tianapi.com/pyqwenan/index?key={}".format(key)
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
-            'Content-type': 'application/x-www-form-urlencoded'
-
-        }
-        response = get(url, headers=headers).json()
-        if response["code"] == 200:
-            chp = response["newslist"][0]["content"]
-        else:
-            chp = ""
-    except KeyError:
-        chp = ""
-    return chp
+    # 获取早安心语，晚安心语，健康小提示，土味情话，生活小窍门， 彩虹屁，毒鸡汤，舔狗日记，小段子，朋友圈文案， 文化谚语
+    data = ["caihongpi", "pyqwenan"]
+    data_list = {}
+    for i in data:
+        try:
+            key = config["tian_api"]
+            url = "http://api.tianapi.com/{}/index?key={}".format(i, key)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+                'Content-type': 'application/x-www-form-urlencoded'
+ 
+            }
+            response = get(url, headers=headers).json()
+            if response["code"] == 200:
+                if i != "proverb":
+                    content = response["newslist"][0]["content"]
+                else:
+                    content = "{}，{}".format(response["newslist"][0]["front"], response["newslist"][0]["behind"])
+            else:
+                content = response["msg"]
+        except KeyError:
+            content = "未配置天行数据key"
+        if i == "caihongpi":
+            i = "chp"
+        elif i == "pyqwenan":
+            i = "wenan"
+        data_list[i] = content
+    return data_list
 
  
 def get_birthday(birthday, year, today):
@@ -250,5 +262,5 @@ if __name__ == "__main__":
     pyqwenan = get_tianhang(config)
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en,pyqwenan,config)
+        send_message(user, accessToken, region, weather, temp, wind_dir,pyqwenan,config)
     os.system("pause")
