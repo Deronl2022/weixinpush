@@ -266,5 +266,5 @@ if __name__ == "__main__":
     pyqwenan = get_tianhang(config)
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir,wenan,config)
+        send_message(user, accessToken, region, weather, temp, wind_dir,tianhang_data)
     os.system("pause")
