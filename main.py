@@ -60,6 +60,26 @@ def get_weather(region):
     wind_dir = response["now"]["windDir"]
     return weather, temp, wind_dir
  
+
+def get_tianhang(config):
+    try:
+        key = config["tian_api"]
+        url = "http://api.tianapi.com/pyqwenan/index?key={}".format(key)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+            'Content-type': 'application/x-www-form-urlencoded'
+
+        }
+        response = get(url, headers=headers).json()
+        if response["code"] == 200:
+            chp = response["newslist"][0]["content"]
+        else:
+            chp = ""
+    except KeyError:
+        chp = ""
+    return chp
+
  
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
@@ -227,7 +247,8 @@ if __name__ == "__main__":
     if note_ch == "" and note_en == "":
         # 获取词霸每日金句
         note_ch, note_en = get_ciba()
+    pyqwenan = get_tianhang(config)
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en)
+        send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en,pyqwenan,config)
     os.system("pause")
