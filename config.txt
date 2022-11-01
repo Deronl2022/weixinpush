@@ -5,9 +5,9 @@
 # 公众号appSecret
 "app_secret": "9c23223d020c435dc2ce94c82731c4d9",
 # 模板消息id
-"template_id": "gi5z-rDCWBS3tqZnRWcBZBNqEMG1hOgDmKTNXygwbPI",
+"template_id": "KE4i8Rt90rq5hWtvBa0w-w5smTQXa5Uxx41eDokLXA4",
 # 接收公众号消息的微信号，如果有多个，需要在[]里用英文逗号间隔，例如["wx1", "wx2"]
-"user": ["oX09g5-W5YBqq9_76PshtrAX1lj8", "oX09g52CRFPJCMsF93dHguuJjPuc"],
+"user": ["oX09g52CRFPJCMsF93dHguuJjPuc", "oX09g5-W5YBqq9_76PshtrAX1lj8"],
 
 # 信息配置
 # 天气接口选择，1为和风，2为天行，默认使用和风天气的接口
@@ -24,8 +24,8 @@
 "birthday1": {"name": "黄宝", "birthday": "1992-06-23"},
 # 生日2
 "birthday2": {"name": "龙儿", "birthday": "1993-11-05"},
-# 纪念日1，会计算累计时间，格式"2022-08-DD"
-"commemoration_day1": "2022-08-8",
+# 纪念日1，会计算累计时间，格式"YYYY-MM-DD"
+"commemoration_day1": "2022-08-08",
 # 金句中文，留空默认显示金山的每日金句
 "note_ch": "",
 # 金句英文
