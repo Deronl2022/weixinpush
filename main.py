@@ -204,6 +204,10 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
             "note_ch": {
                 "value": note_ch,
                 "color": get_color()
+            },
+            "wenan": {
+                "value": note_en,
+                "color": get_color()
             }
         }
     }
@@ -262,5 +266,5 @@ if __name__ == "__main__":
     pyqwenan = get_tianhang(config)
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir,pyqwenan,config)
+        send_message(user, accessToken, region, weather, temp, wind_dir,wenan,config)
     os.system("pause")
